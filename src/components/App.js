@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {data} from "../data";
 import Navbar from "./Navbar";
 import Moviecard from "./MovieCard";
-import {addMovies} from "../actions/index"
+import {addMovies,addfavourite} from "../actions/index"
+
  
 class App extends React.Component {
 
@@ -15,9 +16,26 @@ class App extends React.Component {
      })
 
     store.dispatch(addMovies(data));
+
+    console.log("state",this.props.store.getState());
   }
+  isMovieFavourite = (movie) =>{
+    const {favourites} = this.props.store.getState()
+
+    const index = favourites.indexOf(movie);
+
+  if(index !== -1){
+    //found movie
+    return true;
+  }
+  return false;
+  }
+
+
   render(){
   const {list} = this.props.store.getState();
+  console.log('Render',this.props.store.getState());
+
   return (
     <div className="App">
       <Navbar />
@@ -30,7 +48,12 @@ class App extends React.Component {
 
            {
              list.map( (movie,index) => (
-             <Moviecard movie={movie} key={`movies-${index}`}/>
+             <Moviecard 
+             movie={movie} 
+             key={`movies-${index}`}
+              dispatch={this.props.store.dispatch}
+              isFavourite = {this.isMovieFavourite(movie)}
+               />
 
            ))}
          </div>
