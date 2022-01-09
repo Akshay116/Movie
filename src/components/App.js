@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {data} from "../data";
 import Navbar from "./Navbar";
 import Moviecard from "./MovieCard";
-import {addMovies,addfavourite} from "../actions/index"
+import {addMovies} from "../actions/index"
 
  
 class App extends React.Component {
